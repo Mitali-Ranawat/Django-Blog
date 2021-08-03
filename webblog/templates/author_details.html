@@ -11,7 +11,7 @@
 
 <ul>
     {% for post in object_list %}
-        <li><a href="{% url 'blog-detail' post.pk %}">{{ post.title }} 
+    <li><a href="{% url 'blog-detail' post.pk %}">{{ post.title }} </a>
         <br/>
         {{ post.body }}</li>
 
