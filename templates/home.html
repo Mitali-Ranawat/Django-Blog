@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Post</h1>
+
+<ul>
+    {% for post in page_obj %}
+        <li><a href="{% url 'blog-detail' post.pk %}">{{ post.title }} </a>- {{ post.author.first_name }}
+        {{ post.author.last_name }} - - {{ post.date }} 
+
+        {% if user.is_authenticated %}
+            <a href="{% url 'update-blog' post.pk %}">(Edit)</a> 
+            <a href="{% url 'delete-blog' post.pk %}">(Delete)</a>
+        {% endif %}
+        <br/>
+        {{ post.body }}</li>
+
+    {% endfor %}
+</ul>
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}
